@@ -22,7 +22,7 @@ import com.api.restspring.restapispring.services.BookService;
 public class BookController {
 
     @Autowired
-    private BookService bookService;
+    private BookService bookService; 
 
     @GetMapping("/books")
     public ResponseEntity<List<Book>> getBooks() {
@@ -30,10 +30,9 @@ public class BookController {
         List<Book> list = this.bookService.getAllBooks();
         if(list.size() <= 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
         }
 
-           return ResponseEntity.of(Optional.of(list)) ;
+           return ResponseEntity.status(HttpStatus.CREATED).body(list);
     }
 
     @GetMapping("/books/{id}")
